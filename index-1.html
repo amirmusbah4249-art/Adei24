@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>ADEI 24 PHARMACY</title>
+<style>
+body{
+    font-family:tahoma;
+    background:#f2f2f2;
+    margin:0;
+}
+header{
+    background:#0a7cff;
+    color:white;
+    padding:15px;
+    text-align:center;
+}
+.search-box{
+    margin:15px auto;
+    width:90%;
+    text-align:center;
+}
+.search-box input{
+    width:80%;
+    padding:10px;
+    font-size:16px;
+}
+.container{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+    gap:15px;
+    padding:15px;
+}
+.card{
+    background:white;
+    border-radius:8px;
+    padding:10px;
+    box-shadow:0 0 5px rgba(0,0,0,0.2);
+    text-align:center;
+}
+.card img{
+    width:100%;
+    height:140px;
+    object-fit:contain;
+}
+.price{color:green;font-weight:bold;}
+.low{color:red;}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>ADEI 24 PHARMACY</h1>
+</header>
+
+<div class="search-box">
+    <input type="text" id="search" placeholder="...مدیر صاحب علی که ثوک وایی چی دلته سرچ نه کیگی">
+</div>
+
+<div class="container" id="drugList"></div>
+
+<script>
+let drugs = [
+    {
+        name:"Paracetamol",
+        price:50,
+        qty:120,
+        exp:"2026-05-01",
+        img:"file:///C:/Users/amk/Desktop/PfizerParacetamol500mgFilmCoatedTablets24Pack.jpg"
+    },
+    {
+        name:"Amoxicillin",
+        price:120,
+        qty:40,
+        exp:"2025-11-10",
+        img:"file:///C:/Users/amk/Desktop/naa014_1.jpg"
+    },
+    {
+        name:"totalvit",
+        price:120,
+        qty:40,
+        exp:"2025-11-10",
+        img:"file:///C:/Users/amk/Desktop/3d-totalvit-.png"
+    },
+    {
+        name:"sita-glumet50/1000",
+        price:120,
+        qty:40,
+        exp:"2025-11-10",
+        img:"file:///C:/Users/amk/Desktop/hilsit38141_101613986157.png"
+    },
+    {
+        name:"cefiget",
+        price:120,
+        qty:40,
+        exp:"2025-11-10",
+        img:"file:///C:/Users/amk/Desktop/getcef25326_1639026646_3.webp"
+    },
+    {
+        name:"gaviscon",
+        price:120,
+        qty:40,
+        exp:"2025-11-10",
+        img:"file:///C:/Users/amk/Desktop/04119_2.webp"
+    },
+    {
+        name:"septran",
+        price:120,
+        qty:40,
+        exp:"2025-11-10",
+        img:"file:///C:/Users/amk/Desktop/septran-susp-paeds-40200-mg-50-ml.webp"
+    },
+    {
+        name:"Vitamin C",
+        price:70,
+        qty:200,
+        exp:"2027-01-01",
+        img:"https://via.placeholder.com/150"
+    }
+];
+
+const drugList = document.getElementById("drugList");
+const searchInput = document.getElementById("search");
+
+function showDrugs(list){
+    drugList.innerHTML="";
+    list.forEach(d=>{
+        let card = document.createElement("div");
+        card.className="card";
+        card.innerHTML = `
+            <img src="${d.img}">
+            <h3>${d.name}</h3>
+            <p class="price">قیمت: ${d.price} افغانی</p>
+            <p class="${d.qty<50?'low':''}">تعداد: ${d.qty}</p>
+            <p>تاریخ انقضا: ${d.exp}</p>
+        `;
+        drugList.appendChild(card);
+    });
+}
+
+showDrugs(drugs);
+
+searchInput.addEventListener("input", ()=>{
+    let val = searchInput.value.toLowerCase();
+    let filtered = drugs.filter(d => d.name.toLowerCase().includes(val));
+    showDrugs(filtered);
+});
+</script>
+
+</body>
+</html>
